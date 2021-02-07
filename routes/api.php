@@ -8,6 +8,4 @@ Route::group(["prefix"=>config('model-api.route-prefix'),"middleware"=>config('m
     Route::get('{modelNamespace}/{modelName}','ModelAPIController@readRouting');
     Route::post('{modelNamespace}/{modelName}/{method}','ModelAPIController@methodRouting');
   });
-})
-
-
+});
