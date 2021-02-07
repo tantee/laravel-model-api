@@ -4,7 +4,6 @@ namespace TaNteE\LaravelModelApi;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use TaNteE\LaravelModelApi\Commands\LaravelModelApiCommand;
 
 class LaravelModelApiServiceProvider extends PackageServiceProvider
 {
