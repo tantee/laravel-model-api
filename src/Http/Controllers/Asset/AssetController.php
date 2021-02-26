@@ -3,9 +3,9 @@
 namespace TaNteE\LaravelModelApi\Http\Controllers\Asset;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use TaNteE\LaravelModelApi\Http\Controllers\Controller;
 use TaNteE\LaravelModelApi\LaravelModelApi;
-use Validator;
 
 class AssetController extends Controller
 {

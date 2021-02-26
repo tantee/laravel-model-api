@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 use TaNteE\LaravelGenericApi\Http\Resources\ExtendedResourceCollection;
 use TaNteE\LaravelGenericApi\LaravelGenericApi;
 use TaNteE\PhpUtilities\ArrayType;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class LaravelModelApi
 {
@@ -588,7 +588,7 @@ class LaravelModelApi
         }
 
         if ($success) {
-            if (! is_subclass_of($resource, ExtendedResourceCollection::class) && $resource != ExtendedResourceCollection::class) {
+            if (! is_subclass_of($resource, ExtendedResourceCollection::class,true) && $resource != ExtendedResourceCollection::class) {
                 $resource = ExtendedResourceCollection::class;
             }
         }
