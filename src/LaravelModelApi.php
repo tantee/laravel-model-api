@@ -288,8 +288,8 @@ class LaravelModelApi
         $returnModels = [];
 
         $createDataValidator = Validator::make($request->all(), [
-      'data' => 'required|array',
-    ]);
+            'data' => 'required|array',
+            ]);
 
         if ($createDataValidator->fails()) {
             foreach ($createDataValidator->errors()->all() as $value) {
@@ -315,8 +315,8 @@ class LaravelModelApi
         $returnModels = [];
 
         $createDataValidator = Validator::make($request->all(), [
-      'data' => 'required|array',
-    ]);
+            'data' => 'required|array',
+            ]);
 
         if ($createDataValidator->fails()) {
             foreach ($createDataValidator->errors()->all() as $value) {
@@ -406,8 +406,8 @@ class LaravelModelApi
         $excludedField = ['created_at','updated_at','deleted_at','created_by','updated_by','deleted_by'];
 
         $queryDataValidator = Validator::make($request->all(), [
-      'data' => 'required|array',
-    ]);
+            'data' => 'required|array',
+            ]);
 
         if ($queryDataValidator->fails()) {
             foreach ($queryDataValidator->errors()->all() as $value) {
@@ -503,12 +503,12 @@ class LaravelModelApi
         $keyField = $tempModel->getKeyName();
 
         $updateDataValidator = Validator::make($request->all(), [
-      'data' => 'required|array',
-      'data.updateWhere' => 'sometimes|required|array',
-      'data.updateValue' => 'required_with:updateWhere|array',
-      'returnData' => 'sometimes|required|boolean',
-      'override' => 'sometimes|required|boolean',
-    ]);
+            'data' => 'required|array',
+            'data.updateWhere' => 'sometimes|required|array',
+            'data.updateValue' => 'required_with:updateWhere|array',
+            'returnData' => 'sometimes|required|boolean',
+            'override' => 'sometimes|required|boolean',
+            ]);
 
         if ($updateDataValidator->fails()) {
             foreach ($updateDataValidator->errors()->all() as $value) {
@@ -541,8 +541,8 @@ class LaravelModelApi
         $returnModels = collect();
 
         $searchDataValidator = Validator::make($request->all(), [
-      'data' => 'required|array',
-    ]);
+            'data' => 'required|array',
+            ]);
 
         if ($searchDataValidator->fails()) {
             foreach ($searchDataValidator->errors()->all() as $value) {
@@ -576,8 +576,8 @@ class LaravelModelApi
             }
 
             $searchDataValidator = Validator::make($data, [
-        '*' => 'array|size:3',
-      ]);
+                '*' => 'array|size:3',
+            ]);
 
             if ($searchDataValidator->fails()) {
                 foreach ($searchDataValidator->errors()->all() as $value) {
@@ -661,8 +661,8 @@ class LaravelModelApi
         $returnModels = [];
 
         $searchDataValidator = Validator::make($request->all(), [
-      'data' => 'required|array',
-    ]);
+            'data' => 'required|array',
+            ]);
 
         if ($searchDataValidator->fails()) {
             foreach ($searchDataValidator->errors()->all() as $value) {
@@ -693,8 +693,8 @@ class LaravelModelApi
             }
 
             $searchDataValidator = Validator::make($data, [
-        '*' => 'array|size:3',
-      ]);
+                '*' => 'array|size:3',
+            ]);
 
             if ($searchDataValidator->fails()) {
                 foreach ($searchDataValidator->errors()->all() as $value) {
@@ -769,9 +769,9 @@ class LaravelModelApi
         $keyField = $tempModel->getKeyName();
 
         $deleteDataValidator = Validator::make($request->all(), [
-      'data' => 'required|array',
-      'data.'.$keyField => 'required',
-    ]);
+            'data' => 'required|array',
+            'data.'.$keyField => 'required',
+            ]);
 
         if ($deleteDataValidator->fails()) {
             foreach ($deleteDataValidator->errors()->all() as $value) {
@@ -803,9 +803,9 @@ class LaravelModelApi
         $returnModels = [];
 
         $queryDataValidator = Validator::make($request->all(), [
-      'data' => 'required|array',
-      'data.key' => 'required',
-    ]);
+            'data' => 'required|array',
+            'data.key' => 'required',
+            ]);
 
         if ($queryDataValidator->fails()) {
             foreach ($queryDataValidator->errors()->all() as $value) {
@@ -844,8 +844,8 @@ class LaravelModelApi
         $returnModels = collect();
 
         $searchDataValidator = Validator::make($request->all(), [
-      'data' => 'required|array',
-    ]);
+            'data' => 'required|array',
+            ]);
 
         if ($searchDataValidator->fails()) {
             foreach ($searchDataValidator->errors()->all() as $value) {
@@ -879,8 +879,8 @@ class LaravelModelApi
             }
 
             $searchDataValidator = Validator::make($data, [
-        '*' => 'array|size:3',
-      ]);
+                '*' => 'array|size:3',
+            ]);
 
             if ($searchDataValidator->fails()) {
                 foreach ($searchDataValidator->errors()->all() as $value) {

@@ -83,7 +83,7 @@ class AssetController extends Controller
             'md5hash' => $md5hash,
           ];
 
-                $assets = LaravelModelApi::createModel($data, \App\Models\Asset\Assets::class);
+                $assets = LaravelModelApi::createModel($data, config('model-api.asset-model'));
                 if ($assets['success']) {
                     foreach ($assets['returnModels'] as $asset) {
                         array_push($returnData, $asset->makeHidden(['storage','storagePath']));
@@ -97,7 +97,7 @@ class AssetController extends Controller
 
     public static function getAsset($id)
     {
-        $asset = \App\Models\Asset\Assets::find($id);
+        $asset = config('model-api.asset-model')::find($id);
 
         if ($asset != null && Storage::disk($asset->storage)->exists($asset->storagePath)) {
             if ($asset->storage == 'local') {
@@ -116,7 +116,7 @@ class AssetController extends Controller
         $errorTexts = [];
         $returnModels = [];
 
-        $asset = \App\Models\Asset\Assets::find($id);
+        $asset = config('model-api.asset-model')::find($id);
         if (($asset !== null) && (($asset->md5hash == $md5hash) || ($md5hash == null))) {
             $asset->with(['base64data']);
             $returnModels = $asset->only(['id','md5hash','base64data']);
@@ -131,7 +131,7 @@ class AssetController extends Controller
     public static function getAssetsBase64ByType($hn, $assetType)
     {
         $returnModels = [];
-        $assets = \App\Models\Asset\Assets::where('hn', $hn)->where('assetType', $assetType)->get();
+        $assets = config('model-api.asset-model')::where('hn', $hn)->where('assetType', $assetType)->get();
         foreach ($assets as $asset) {
             $returnData = self::getAssetDataBase64($asset);
             if ($returnData !== null) {
@@ -142,7 +142,7 @@ class AssetController extends Controller
         return $returnModels;
     }
 
-    public static function getAssetDataBase64(\App\Models\Asset\Assets $asset)
+    public static function getAssetDataBase64($asset)
     {
         $returnData = null;
 
@@ -161,7 +161,7 @@ class AssetController extends Controller
         $errorTexts = [];
         $returnModels = [];
 
-        $asset = \App\Models\Asset\Assets::find($id);
+        $asset = config('model-api.asset-model')::find($id);
         if (($asset !== null) && ($asset->md5hash == $md5hash)) {
             $asset->delete();
         } else {
