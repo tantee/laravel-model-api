@@ -12,7 +12,7 @@ class ModelAPIController extends Controller
         Log::info($methodFunction." ".$modelNamespace.".".$modelName);
         $modelClassName = "\\App\\Models\\$modelNamespace\\$modelName";
         if (class_exists($modelClassName)) {
-            $methodClass = "\\TaNteE\\\LaravelModelApi\\LaravelModelApi";
+            $methodClass = "\\TaNteE\\LaravelModelApi\\LaravelModelApi";
             if (method_exists($methodClass, $methodFunction)) {
                 return $methodClass::$methodFunction($request, $modelClassName);
             } else {
