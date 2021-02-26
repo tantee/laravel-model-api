@@ -5,10 +5,10 @@ namespace TaNteE\LaravelModelApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 use TaNteE\LaravelGenericApi\Http\Resources\ExtendedResourceCollection;
 use TaNteE\LaravelGenericApi\LaravelGenericApi;
 use TaNteE\PhpUtilities\ArrayType;
-use Illuminate\Support\Facades\Validator;
 
 class LaravelModelApi
 {
@@ -588,7 +588,7 @@ class LaravelModelApi
         }
 
         if ($success) {
-            if (! is_subclass_of($resource, ExtendedResourceCollection::class,true) && $resource != ExtendedResourceCollection::class) {
+            if (! is_subclass_of($resource, ExtendedResourceCollection::class, true) && $resource != ExtendedResourceCollection::class) {
                 $resource = ExtendedResourceCollection::class;
             }
         }
