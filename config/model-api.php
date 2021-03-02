@@ -2,6 +2,6 @@
 
 return [
   'route-prefix' => 'api',
-  'route-middleware' => ['api'],
+  'route-middleware' => null,
   'asset-model' => TaNteE\LaravelModelApi\Models\Assets::class,
 ];
