@@ -21,7 +21,7 @@
         "spatie/laravel-package-tools": "^1.1",
         "tantee/laravel-generic-api": "^1.0",
         "tantee/laravel-searchy-fork": "^2.0",
-        "tantee/php-utilities": "dev-master"
+        "tantee/php-utilities": "^1.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
