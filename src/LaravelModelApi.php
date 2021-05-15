@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use TaNteE\LaravelGenericApi\Http\Resources\ExtendedResourceCollection;
 use TaNteE\LaravelGenericApi\LaravelGenericApi;
+use TaNteE\LaravelModelApi\Http\Controllers\ModelAPIController;
 use TaNteE\PhpUtilities\ArrayType;
 
 class LaravelModelApi
@@ -964,5 +965,15 @@ class LaravelModelApi
         } else {
             return $query->$whereFunction($searchData[0], $searchData[1], $searchData[2]);
         }
+    }
+
+    public static function routes($prefix = null, $middleware = null)
+    {
+        Route::group(["prefix" => $prefix,"middleware" => $middleware], function () {
+            Route::prefix('models')->group(function () {
+              Route::get('{modelNamespace}/{modelName}',[ModelAPIController::class,'readRouting']);
+              Route::post('{modelNamespace}/{modelName}/{method}',[ModelAPIController::class,'methodRouting']);
+            });
+        });
     }
 }

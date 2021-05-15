@@ -17,7 +17,6 @@ class LaravelModelApiServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-model-api')
             ->hasConfigFile()
-            ->hasMigration('create_assets_table')
-            ->hasRoute('api');
+            ->hasMigration('create_assets_table');
     }
 }

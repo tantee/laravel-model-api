@@ -12,7 +12,7 @@ trait UserStamps
             if (Auth::guard('api')->check()) {
                 $model->created_by = Auth::guard('api')->user()->username;
             } else {
-                $model->created_by = 'anonymous';
+                $model->created_by = (!empty($model->created_by)) ? $model->created_by : 'anonymous';
             }
         });
         static::updating(function ($model) {
@@ -21,7 +21,7 @@ trait UserStamps
                 if (Auth::guard('api')->check()) {
                     $model->updated_by = Auth::guard('api')->user()->username;
                 } else {
-                    $model->updated_by = 'anonymous';
+                    $model->updated_by = (!empty($original["updated_by"])) ? $original["updated_by"] : $original["created_by"];
                 }
             } else {
                 $model->timestamps = false;
