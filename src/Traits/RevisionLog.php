@@ -2,6 +2,8 @@
 
 namespace TaNteE\LaravelModelApi\Traits;
 
+use Illuminate\Support\Arr;
+
 trait RevisionLog
 {
     public static function bootRevisionLog()
@@ -24,7 +26,7 @@ trait RevisionLog
                 }
             }
             if ($isDataChange) {
-                $oldRevision = array_wrap($model->${$this->revisionField});
+                $oldRevision = Arr::wrap($model->${$this->revisionField});
                 $newRevision['updated_by'] = ($original['updated_by'] !== null) ? $original['updated_by'] : $original['created_by'];
                 $newRevision['updated_at'] = $original['updated_at'];
                 array_push($oldRevision, $newRevision);

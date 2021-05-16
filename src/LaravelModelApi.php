@@ -58,7 +58,7 @@ class LaravelModelApi
 
             try {
                 foreach ($data as $dataItem) {
-                    $newItem = array_only($dataItem, $fillable);
+                    $newItem = Arr::only($dataItem, $fillable);
                     $createdModel = $model::create($newItem)->fresh();
                     if ($returnWith != null) {
                         $createdModel->load($returnWith);
@@ -131,7 +131,7 @@ class LaravelModelApi
 
             try {
                 foreach ($data as $dataItem) {
-                    $newItem = array_only($dataItem, $fillable);
+                    $newItem = Arr::only($dataItem, $fillable);
                     if (isset($dataItem[$keyField]) && $dataItem[$keyField] != null) {
                         $existModel = $model::find($dataItem[$keyField]);
                         if ($existModel != null) {
@@ -211,7 +211,7 @@ class LaravelModelApi
                         }
 
                         $tempUpdate = [];
-                        $tempUpdate = array_add($tempUpdate, 'updateWhere', [$keyField => array_pull($row, $keyField)]);
+                        $tempUpdate = array_add($tempUpdate, 'updateWhere', [$keyField => Arr::pull($row, $keyField)]);
                         $tempUpdate = array_add($tempUpdate, 'updateValue', $row);
                         array_push($tempData, $tempUpdate);
                     }
@@ -255,7 +255,7 @@ class LaravelModelApi
             try {
                 $tempModel = new $model;
                 foreach ($data as $row) {
-                    $newValue = array_only($row["updateValue"], $fillable);
+                    $newValue = Arr::only($row["updateValue"], $fillable);
                     $tempUpdating = $model::where($row['updateWhere'])->get();
                     foreach ($tempUpdating as $item) {
                         $item->fill($newValue);
