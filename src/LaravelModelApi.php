@@ -3,6 +3,7 @@
 namespace TaNteE\LaravelModelApi;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
@@ -970,7 +971,7 @@ class LaravelModelApi
 
     public static function routes($prefix = null, $middleware = null)
     {
-        Route::group(["prefix" => $prefix,"middleware" => $middleware], function () {
+        Route::prefix($prefix)->middleware(Arr::wrap($middleware))->group(function () {
             Route::prefix('models')->group(function () {
               Route::get('{modelNamespace}/{modelName}',[ModelAPIController::class,'readRouting']);
               Route::post('{modelNamespace}/{modelName}/{method}',[ModelAPIController::class,'methodRouting']);
