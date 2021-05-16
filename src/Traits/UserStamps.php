@@ -9,8 +9,8 @@ trait UserStamps
     public static function bootUserStamps()
     {
         static::creating(function ($model) {
-            if (Auth::guard('api')->check()) {
-                $model->created_by = Auth::guard('api')->user()->username;
+            if (Auth::check()) {
+                $model->created_by = Auth::user()->username;
             } else {
                 $model->created_by = (!empty($model->created_by)) ? $model->created_by : 'anonymous';
             }
@@ -18,8 +18,8 @@ trait UserStamps
         static::updating(function ($model) {
             $original = $model->getOriginal();
             if (array_key_exists('deleted_by', $original) && $model->deleted_by == $original['deleted_by']) {
-                if (Auth::guard('api')->check()) {
-                    $model->updated_by = Auth::guard('api')->user()->username;
+                if (Auth::check()) {
+                    $model->updated_by = Auth::user()->username;
                 } else {
                     $model->updated_by = (!empty($original["updated_by"])) ? $original["updated_by"] : $original["created_by"];
                 }
@@ -28,8 +28,8 @@ trait UserStamps
             }
         });
         static::deleting(function ($model) {
-            if (Auth::guard('api')->check()) {
-                $model->deleted_by = Auth::guard('api')->user()->username;
+            if (Auth::check()) {
+                $model->deleted_by = Auth::user()->username;
             } else {
                 $model->deleted_by = 'anonymous';
             }
