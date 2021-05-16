@@ -4,6 +4,7 @@ namespace TaNteE\LaravelModelApi;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use TaNteE\LaravelGenericApi\Http\Resources\ExtendedResourceCollection;
