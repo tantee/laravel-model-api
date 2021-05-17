@@ -938,7 +938,7 @@ class LaravelModelApi
         try {
             $record = $model::findOrFail($modelId);
 
-            return ($record->updated_at == $updated_at);
+            return ($record->updated_at->equalTo(\Carbon\Carbon::parse($updated_at)));
         } catch (\Exception $e) {
             return false;
         }
