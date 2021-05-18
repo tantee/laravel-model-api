@@ -181,7 +181,7 @@ class LaravelModelApi
         $returnModels = [];
 
         if ($success) {
-            if (! array_key_exists('updateWhere', $data)) {
+            if (! isset($data['updateWhere'])) {
                 if (array_keys($data) !== range(0, count($data) - 1)) {
                     $data = [$data];
                 }
@@ -190,8 +190,8 @@ class LaravelModelApi
                 $keyField = $tempModel->getKeyName();
 
                 $keyFieldValidator = validator::make($data, [
-          '*.'.$keyField => 'required',
-        ]);
+                    '*.'.$keyField => 'required',
+                    ]);
 
                 if ($keyFieldValidator->fails()) {
                     foreach ($keyFieldValidator->errors()->all() as $value) {
