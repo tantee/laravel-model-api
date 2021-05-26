@@ -16,7 +16,7 @@ trait UserStamps
             }
         });
         static::updating(function ($model) {
-            $original = $model->getOriginal();z
+            $original = $model->getOriginal();
             if (array_key_exists('deleted_by',$original) && $model->deleted_by == $original['deleted_by']) {
                 if (Auth::check()) {
                     $model->updated_by = Auth::user()->username;
