@@ -49,7 +49,7 @@ class LaravelModelApi
             } else {
                 $fillable = array_diff($fillable, $tempModel->getGuarded());
             }
-            $fillable = Arr::except($fillable, ['created_at','created_by','updated_at','updated_by','deleted_at','deleted_by']);
+            $fillable = array_diff($fillable, ['created_at','created_by','updated_at','updated_by','deleted_at','deleted_by']);
         }
 
         if ($success) {
@@ -123,7 +123,7 @@ class LaravelModelApi
             } else {
                 $fillable = array_diff($fillable, $tempModel->getGuarded());
             }
-            $fillable = Arr::except($fillable, ['created_at','created_by','updated_at','updated_by','deleted_at','deleted_by']);
+            $fillable = array_diff($fillable, ['created_at','created_by','updated_at','updated_by','deleted_at','deleted_by']);
         }
 
         if ($success) {
@@ -139,7 +139,7 @@ class LaravelModelApi
                         if ($existModel != null) {
                             $existModel->fill($newItem);
                             $existModel->save();
-                            $existModel->fresh();
+                            $existModel = $model::find($dataItem[$keyField]);
                             if ($returnWith != null) {
                                 $existModel->load($returnWith);
                             }
@@ -232,7 +232,7 @@ class LaravelModelApi
             } else {
                 $fillable = array_diff($fillable, $tempModel->getGuarded());
             }
-            $fillable = Arr::except($fillable, ['created_at','created_by','updated_at','updated_by','deleted_at','deleted_by']);
+            $fillable = array_diff($fillable, ['created_at','created_by','updated_at','updated_by','deleted_at','deleted_by']);
         }
 
         if ($success && ! empty($validatorRule)) {
