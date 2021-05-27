@@ -949,7 +949,7 @@ class LaravelModelApi
 
     public static function searchQuery(&$query, $searchData)
     {
-        $singleParameter = ["whereNull","whereNotNull","orWhereNull","orWhereNotNull","whereHas"];
+        $singleParameter = ["whereNull","whereNotNull","orWhereNull","orWhereNotNull","whereHas","orWhereHas","doesntHave","orDoesntHave"];
 
         $whereFunction = explode('#', $searchData[0]);
         if (count($whereFunction) > 1) {
