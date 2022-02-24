@@ -2,8 +2,6 @@
 
 namespace TaNteE\LaravelModelApi\Traits;
 
-use Illuminate\Support\Arr;
-
 trait RevisionLog
 {
     public static function bootRevisionLog()
@@ -15,23 +13,27 @@ trait RevisionLog
 
     public function saveRevision()
     {
-        if (isset($this->toRevisionField) && is_array($this->toRevisionField) && isset($this->revisionField)) {
-            $original = $model->getOriginal();
-            $isDataChange = false;
-            $newRevision = [];
-            foreach ($this->toRevisionField as $field) {
-                if ($this->$field != $original[$field]) {
-                    $isDataChange = true;
-                    $newRevision[$field] = $original[$field];
+        if (isset($this->toRevisionField) && is_array($this->toRevisionField)) {
+            if ($this->isDirty($this->toRevisionField)) {
+                $original = $this->getOriginal();
+                $revisionClass = config('model-api.revision-model');
+                $revisionKey = $this->getTable()."_".$this->getKeyName()."_".$this->getKey();
+
+                if (class_exists($revisionClass)) {
+                    $revision = new $revisionClass();
+                    $revision->revisionKey = $revisionKey;
+                    $revision->revisionDateTime = $original['updated_at'];
+                    $revision->revisionData = $original;
+                    $revision->save();
                 }
             }
-            if ($isDataChange) {
-                $oldRevision = Arr::wrap($model->${$this->revisionField});
-                $newRevision['updated_by'] = ($original['updated_by'] !== null) ? $original['updated_by'] : $original['created_by'];
-                $newRevision['updated_at'] = $original['updated_at'];
-                array_push($oldRevision, $newRevision);
-                $model->${$this->revisionField} = $oldRevision;
-            }
         }
+    }
+
+    public function getRevisionsAttribute() {
+        $revisionClass = config('model-api.revision-model');
+        $revisionKey = $this->getTable()."_".$this->getKeyName()."_".$this->getKey();
+
+        return $revisionClass::where('revisionKey',$revisionKey)->get()->pluck('revisionData');
     }
 }
