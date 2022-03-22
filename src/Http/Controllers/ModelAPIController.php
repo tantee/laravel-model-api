@@ -9,7 +9,7 @@ class ModelAPIController extends Controller
 {
     private static function genericRouting(Request $request, $methodFunction, $modelNamespace, $modelName, $modelId = null)
     {
-        Log::info($methodFunction." ".$modelNamespace.".".$modelName);
+        Log::debug($methodFunction." ".$modelNamespace.".".$modelName);
         $modelClassName = "\\App\\Models\\$modelNamespace\\$modelName";
         if (class_exists($modelClassName)) {
             $methodClass = "\\TaNteE\\LaravelModelApi\\LaravelModelApi";
