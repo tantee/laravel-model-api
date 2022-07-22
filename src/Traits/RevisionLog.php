@@ -41,7 +41,7 @@ trait RevisionLog
         return $revisionClass::where('revisionKey',$revisionKey)->get()->pluck('revisionData');
     }
 
-    private function canSaveRevision() {
+    protected function canSaveRevision() {
         return true;
     }
 }
