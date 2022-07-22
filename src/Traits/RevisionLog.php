@@ -16,17 +16,21 @@ trait RevisionLog
         if (isset($this->toRevisionField) && is_array($this->toRevisionField)) {
             if ($this->isDirty($this->toRevisionField)) {
                 $original = $this->getOriginal();
-                $revisionClass = config('model-api.revision-model');
-                $revisionKey = $this->getTable()."_".$this->getKeyName()."_".$this->getKey();
-
-                if (class_exists($revisionClass)) {
-                    $revision = new $revisionClass();
-                    $revision->revisionKey = $revisionKey;
-                    $revision->revisionDateTime = $original['updated_at'];
-                    $revision->revisionData = $original;
-                    $revision->save();
-                }
+                $this->saveRevisionData($original);
             }
+        }
+    }
+
+    public function saveRevisionData($revisionData,$revisionDateTime=null) {
+        $revisionClass = config('model-api.revision-model');
+        $revisionKey = $this->getTable()."_".$this->getKeyName()."_".$this->getKey();
+
+        if (class_exists($revisionClass)) {
+            $revision = new $revisionClass();
+            $revision->revisionKey = $revisionKey;
+            $revision->revisionDateTime = ($revisionDateTime) ? $revisionDateTime : ((!empty($revisionData['updated_at'])) ? $revisionData['updated_at'] : \Carbon\Carbon::now());
+            $revision->revisionData = $revisionData;
+            $revision->save();
         }
     }
 
