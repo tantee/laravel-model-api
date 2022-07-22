@@ -7,7 +7,7 @@ trait RevisionLog
     public static function bootRevisionLog()
     {
         static::updating(function ($model) {
-            $model->saveRevision();
+            if ($this->canSaveRevision()) $model->saveRevision();
         });
     }
 
@@ -39,5 +39,9 @@ trait RevisionLog
         $revisionKey = $this->getTable()."_".$this->getKeyName()."_".$this->getKey();
 
         return $revisionClass::where('revisionKey',$revisionKey)->get()->pluck('revisionData');
+    }
+
+    private function canSaveRevision() {
+        return true;
     }
 }
