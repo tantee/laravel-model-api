@@ -7,7 +7,7 @@ trait RevisionLog
     public static function bootRevisionLog()
     {
         static::updating(function ($model) {
-            if ($this->canSaveRevision()) $model->saveRevision();
+            if ($model->canSaveRevision()) $model->saveRevision();
         });
     }
 
