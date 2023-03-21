@@ -966,9 +966,30 @@ class LaravelModelApi
         if (in_array($whereFunction, $singleParameter)) {
             return $query->$whereFunction($searchData[0]);
         } elseif ($searchData[1] == "=") {
-            return $query->$whereFunction($searchData[0], $searchData[2]);
+            if ($whereFunction=="whereDate") {
+                $startDate = \Carbon\Carbon::parse($searchData[2])->startOfDay();
+                $endDate = \Carbon\Carbon::parse($searchData[2])->endOfDay();
+                return $query->whereBetween($searchData[0], [$startDate,$endDate]);
+            } else {
+                return $query->$whereFunction($searchData[0], $searchData[2]);
+            }
         } else {
-            return $query->$whereFunction($searchData[0], $searchData[1], $searchData[2]);
+            if ($whereFunction=="whereDate") {
+                if ($searchData[1]==">" || $searchData[1]==">=") {
+                    $queryDate = \Carbon\Carbon::parse($searchData[2])->startOfDay();
+                } else if ($searchData[1]=="<" || $searchData[1]=="<=") {
+                    $queryDate = \Carbon\Carbon::parse($searchData[2])->endOfDay();
+                } else if ($searchData[1]=="<>") {
+                    $startDate = \Carbon\Carbon::parse($searchData[2])->startOfDay();
+                    $endDate = \Carbon\Carbon::parse($searchData[2])->endOfDay();
+                    return $query->whereNotBetween($searchData[0], [$startDate,$endDate]);
+                } else {
+                    return $query->$whereFunction($searchData[0], $searchData[1], $searchData[2]);
+                }
+                return $query->where($searchData[0],$searchData[1],$queryDate);
+            } else {
+                return $query->$whereFunction($searchData[0], $searchData[1], $searchData[2]);
+            }
         }
     }
 
