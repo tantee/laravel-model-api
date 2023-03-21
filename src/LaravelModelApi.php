@@ -975,9 +975,9 @@ class LaravelModelApi
             }
         } else {
             if ($whereFunction=="whereDate") {
-                if ($searchData[1]==">" || $searchData[1]==">=") {
+                if ($searchData[1]=="<" || $searchData[1]==">=") {
                     $queryDate = \Carbon\Carbon::parse($searchData[2])->startOfDay();
-                } else if ($searchData[1]=="<" || $searchData[1]=="<=") {
+                } else if ($searchData[1]==">" || $searchData[1]=="<=") {
                     $queryDate = \Carbon\Carbon::parse($searchData[2])->endOfDay();
                 } else if ($searchData[1]=="<>") {
                     $startDate = \Carbon\Carbon::parse($searchData[2])->startOfDay();
